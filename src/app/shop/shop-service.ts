@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IPagnation } from '../shared/Models/Pagination';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ICategory } from '../shared/Models/Category';
+import { ProductParam } from '../shared/Models/ProductParam';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,20 @@ export class ShopService {
   constructor(private http:HttpClient){
 
   }
-  getProducts(){
-    return this.http.get<IPagnation>(this.baseUrl+'Product/get-all');
+  getProduct(productParam:ProductParam) {
+    let param=new HttpParams();
+    if(productParam.CategoryId){
+      param=param.append("categoryId",productParam.CategoryId)
+    }
+    if(productParam.Sort){
+      param=param.append("Sort",productParam.Sort)
+    }
+    if(productParam.search){
+      param=param.append("Search",productParam.search)
+    }
+    param=param.append("pageNumber",productParam.pageNumber)
+    param=param.append("pageSize",productParam.pageSize)
+    return this.http.get<IPagnation>(this.baseUrl+"Product/get-all",{params:param});
   }
    getCategories(){
     return this.http.get<ICategory[]>(this.baseUrl+'Categories/get-all');

@@ -5,18 +5,19 @@
       <div class="sidebar">
         <h4 class="section-title">Sorting</h4>
         <div class="custom-select-wrapper mb-4">
-          <select name="" id="" class="form-select">
-            <option value="Name">Name</option>
-            <option value="PriceAsn">Price:Min-Max</option>
-            <option value="PriceDes">Price:Max-Min</option>
+<select #SortSelected class="form-select" [(ngModel)]="ProductParam.Sort" (change)="SortingByPrice()">
+       @for (item of SortingOption; track $index) {
+          <option [value]="item.value">{{item.name}}</option>
+
+             }
           </select>
         </div>
         <h4 class="section-title">Categories</h4>
         <ul class="list-group custom-list-group">
-          <li class="list-group-item custom-list-item">All</li>
+          <li class="list-group-item custom-list-item" (click)="SelectedId(null)">All</li>
 
 @for (item of categories; track $index) {
-                    <li  (click)="SelectedId(item.id)"
+                    <li [class.active]="item.id==categoryId" (click)="SelectedId(item.id)"
                         class="list-group-item custom-list-item">
                         {{item.name}}
                     </li>
@@ -26,14 +27,16 @@
     <section class="col-md-9">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="paging-container">
-          <span class="text-dark">showing 3 of 3</span>
+          <span class="text-dark">{{products.length}} of
+                        {{TotatlCount}}</span>
         </div>
         <div class="search-container">
           <div class="input-group search-bar">
-            <input #search type="text" class="form-control" placeholder="Search..." />
-            <input type="button" class="btn btn-danger" value="Search" />
-            <input type="button" class="btn btn-dark" value="Reset" />
-          </div>
+             <input #search   [(ngModel)]="ProductParam.search"
+              (keyup)="OnSearch()" (keyup.enter)="OnSearch()"
+            type="text" class="form-control" placeholder="Search...">
+                        <input (click)="OnSearch()" type="button" class="btn btn-danger" value="Search">
+                        <input (click)="ResetValue()" type="button" class="btn btn-dark" value="Reset">          </div>
         </div>
       </div>
        <div class="row g-4">
@@ -42,6 +45,11 @@
                     <app-shop-item class="product-item col-lg-4 col-md-6" [Product]="item"></app-shop-item>
                 </ng-container>
                 }
+                <div class="d-flex justify-content-center align-items-center">
+
+                    <app-pagnation (pageChanged)="OnChangePage($event)"
+                   [pageSize]="ProductParam.pageSize"  [totalCount]="TotatlCount" ></app-pagnation>
+                </div>
        </div>
     </section>
   </div>

@@ -7,15 +7,16 @@ import { CoreModule } from "./core/core-module";
 import { SharedModule } from './shared/shared-module';
 import { provideHttpClient } from '@angular/common/http';
 import { ShopModule } from './shop/shop-module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     App
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CoreModule,SharedModule,ShopModule
+ BrowserModule,
+     AppRoutingModule,
+    CoreModule,ShopModule
 ],
   providers: [
     provideBrowserGlobalErrorListeners(),
