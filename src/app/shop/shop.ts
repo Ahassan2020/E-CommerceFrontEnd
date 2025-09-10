@@ -15,7 +15,7 @@ export class Shop implements OnInit {
   constructor(private service:ShopService){
 
   }
-ProductParam:ProductParam = { CategoryId:null,search:null,Sort:null,pageNumber:1,pageSize:1};
+ProductParam:ProductParam = { CategoryId:null,search:null,Sort:null,pageNumber:1,pageSize:10};
   products:IProduct[]=[];
   categories:ICategory[];
 

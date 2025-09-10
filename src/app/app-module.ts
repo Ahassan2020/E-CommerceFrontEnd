@@ -5,9 +5,11 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { CoreModule } from "./core/core-module";
 import { SharedModule } from './shared/shared-module';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ShopModule } from './shop/shop-module';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { loaderInterceptor } from './core/interceptor/loader-interceptor';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { FormsModule } from '@angular/forms';
   imports: [
  BrowserModule,
      AppRoutingModule,
-    CoreModule,ShopModule
+    CoreModule,NgxSpinnerModule,
 ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
-    provideHttpClient()
-  ],
+    provideHttpClient(withInterceptorsFromDi()),
+{    provide:HTTP_INTERCEPTORS,
+  useClass:loaderInterceptor,multi:true
+}  ],
   bootstrap: [App]
 })
 export class AppModule { }

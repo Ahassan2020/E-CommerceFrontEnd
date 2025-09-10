@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBar } from './nav-bar/nav-bar';
 import { AppRoutingModule } from "../app-routing-module";
+import { RouterModule } from '@angular/router';
 
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -10,8 +12,8 @@ import { AppRoutingModule } from "../app-routing-module";
     NavBar
   ],
   imports: [
-    CommonModule,
-    AppRoutingModule
+    CommonModule,RouterModule,
+    AppRoutingModule,BrowserAnimationsModule
 ],
   exports:[NavBar]
 })
