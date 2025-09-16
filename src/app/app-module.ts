@@ -10,6 +10,7 @@ import { ShopModule } from './shop/shop-module';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { loaderInterceptor } from './core/interceptor/loader-interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,15 @@ import { loaderInterceptor } from './core/interceptor/loader-interceptor';
   ],
   imports: [
  BrowserModule,
-     AppRoutingModule,
+     AppRoutingModule, ToastrModule.forRoot(
+      {
+        closeButton:true,
+        positionClass: 'toast-top-right',
+         countDuplicates: true,
+      timeOut:1500,
+      progressBar:true,
+      }
+     ),
     CoreModule,NgxSpinnerModule,
 ],
   providers: [

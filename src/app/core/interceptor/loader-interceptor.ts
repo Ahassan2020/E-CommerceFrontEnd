@@ -14,13 +14,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class loaderInterceptor implements HttpInterceptor {
   constructor(private _service:Loading){}
-  intercept(request: HttpRequest<any>,next: HttpHandler):
-
-  Observable<HttpEvent<any>> {
-  this._service.loading()
+  intercept(request: HttpRequest<any>,next: HttpHandler):Observable<HttpEvent<any>> {
+  this._service.loading();
 
     return next.handle(request).pipe(
-delay(1000),
+//delay(1000),
       finalize(()=>{
 
         this._service.hideLoader();
