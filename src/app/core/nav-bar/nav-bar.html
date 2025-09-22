@@ -24,8 +24,8 @@
 </form>
 
  <ul class="navbar-nav ml-auto align-items-center">
-  <li class="nav-item"><a routerLink="/" class="nav-link">
-    <i class="material-icons">shopping_cart</i>
+  <li class="nav-item"><a routerLink="/basket" class="nav-link">
+    <i matBadge="{{(count |async)?.basketItems.length}}" matBadgeColor="warn" class="material-icons">shopping_cart</i>
   </a></li>
   <li class="nav-item dropdown">
     <a (click)="toggleDropDown()" routerLink="/" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" >

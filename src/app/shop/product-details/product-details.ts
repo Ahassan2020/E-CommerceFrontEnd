@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShopService } from '../shop-service';
 import { IProduct } from '../../shared/Models/Product';
+import { ToastrService } from 'ngx-toastr';
+import { BasketService } from '../../basket/BasketService';
 
 @Component({
   selector: 'app-product-details',
@@ -17,8 +19,8 @@ reviews:any[]=[]
   loading:boolean=false; constructor(
     private shopService: ShopService,
     private route: ActivatedRoute,
-   // private toast:ToastrService,
-   // private basketService:BasketService
+   private toast:ToastrService,
+   private basketService:BasketService
   ) {}
 
 ngOnInit(): void {
@@ -37,24 +39,24 @@ loadProduct() {
     this.MainImage = src;
   }
   incrementBasket() {
-    // if(this.qunatity<10){
-    //   this.qunatity++;
-    //   this.toast.success("item has been added to the basket","SUCCESS")
-    // }else{
-    //   this.toast.warning("You can't add more than 10 items","Enough")
-    // }
+    if(this.qunatity<10){
+      this.qunatity++;
+      this.toast.success("item has been added to the basket","SUCCESS")
+    }else{
+      this.toast.warning("You can't add more than 10 items","Enough")
+    }
   }
   DecrementBasket() {
-    // if(this.qunatity>1){
-    //   this.qunatity--;
-    //   this.toast.warning("item has been Decrement","SUCCESS")
-    // }else{
-    //   this.toast.error("You can't Decrement more than 1 items","ERROR")
-    // }
+    if(this.qunatity>1){
+      this.qunatity--;
+      this.toast.warning("item has been Decrement","SUCCESS")
+    }else{
+      this.toast.error("You can't Decrement more than 1 items","ERROR")
+    }
   }
   AddToBasket(){
-    // this.basketService.addItemToBasket(this.product,this.qunatity)
-    // this.toast.success("item has been added to basket","SUCCESS")
+    this.basketService.addItemToBasket(this.product,this.qunatity)
+    this.toast.success("item has been added to basket","SUCCESS")
   }
   CalucateDiscount(oldPrice:number,newPrice:number):number{
     return parseFloat(
