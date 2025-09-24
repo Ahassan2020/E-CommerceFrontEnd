@@ -23,6 +23,10 @@ loadChildren: () => import('./checkout/checkout-module').then((m) => m.CheckoutM
  },
 
 {
+  path:'Account',
+loadChildren: () => import('./identity/identity-module').then((m) => m.IdentityModule),
+ },
+{
   path:'**',
   redirectTo:'',
   pathMatch:'full'

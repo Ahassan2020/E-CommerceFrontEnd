@@ -13,6 +13,6 @@ import { OrderTotalComponent } from './Component/order-total/order-total.compone
   imports: [
     CommonModule,PaginationModule.forRoot(),RouterModule
   ],
-  exports:[PaginationModule,PagnationComponent,OrderTotalComponent]
+  exports:[PaginationModule,PagnationComponent,OrderTotalComponent,]
 })
 export class SharedModule { }

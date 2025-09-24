@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { loaderInterceptor } from './core/interceptor/loader-interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { HomeModule } from './home/home.module';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,11 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
  BrowserModule,
-     AppRoutingModule, ToastrModule.forRoot(
+     AppRoutingModule,
+    HomeModule,
+    RouterLink,
+
+      ToastrModule.forRoot(
       {
         closeButton:true,
         positionClass: 'toast-top-right',
@@ -35,7 +41,8 @@ import { ToastrModule } from 'ngx-toastr';
     provideHttpClient(withInterceptorsFromDi()),
 {    provide:HTTP_INTERCEPTORS,
   useClass:loaderInterceptor,multi:true
-}  ],
+}
+ ],
   bootstrap: [App]
 })
 export class AppModule { }
