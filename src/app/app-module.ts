@@ -13,6 +13,7 @@ import { loaderInterceptor } from './core/interceptor/loader-interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeModule } from './home/home.module';
 import { RouterLink } from '@angular/router';
+import { credentialsInterceptor } from './core/interceptor/credentials.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,9 +40,11 @@ import { RouterLink } from '@angular/router';
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withInterceptorsFromDi()),
+    {provide:HTTP_INTERCEPTORS,useClass:credentialsInterceptor,multi:true},
 {    provide:HTTP_INTERCEPTORS,
   useClass:loaderInterceptor,multi:true
-}
+},
+
  ],
   bootstrap: [App]
 })

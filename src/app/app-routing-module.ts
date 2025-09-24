@@ -26,6 +26,11 @@ loadChildren: () => import('./checkout/checkout-module').then((m) => m.CheckoutM
   path:'Account',
 loadChildren: () => import('./identity/identity-module').then((m) => m.IdentityModule),
  },
+ {
+    path: 'orders',
+    loadChildren: () => import('./orders/orders-module').then((m) => m.OrdersModule),
+   // canActivate:[authGuard]
+  },
 {
   path:'**',
   redirectTo:'',

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { Basket, IBasket, IBasketItem, IBasketTotal } from '../shared/Models/Basket';
 import { IProduct } from '../shared/Models/Product';
+import { Delivery } from '../shared/Models/Delivery';
 
 @Injectable({
   providedIn: 'root'
@@ -147,5 +148,32 @@ SetBasket(basket: IBasket) {
         },
       });
   }
+deleteBasket() {
+    var basket: IBasket;
+    this.basketSource.next(basket);
+    this.basketSourceTotal.next(null);
+    localStorage.removeItem('basketId');
+  }
+   SetShippingPrice(delivery: Delivery) {
+    this.shipPrice = delivery.price;
+    this.clacualteTotal();
+  }
+  CreatePaymentIntent(deliveryMethodId: number = 3) {
+    console.log(this.GetCurrentValue().id);
 
+    return this.http
+      .post(
+        this.BaseURL +
+          `Payments/Create?basketId=${
+            this.GetCurrentValue().id
+          }&deliveryId=${deliveryMethodId}`,
+        {}
+      )
+      .pipe(
+        map((value: IBasket) => {
+          this.basketSource.next(value);
+          console.log('test:', value);
+        })
+      );
+  }
 }
